@@ -11,7 +11,11 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
-      - 2326:2326
+      - 5432:5432
+    expose:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     
 
 
@@ -31,11 +35,14 @@ services:
   app:
     container_name: app
     build: .
-    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 2326 --reload"
     volumes:
       - .:/app
     ports:
-      - 8080:8080
+      - 2326:2326
     depends_on:
       - db
-    restart: always
+
+
+volumes:
+  postgres_data:
