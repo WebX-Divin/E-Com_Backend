@@ -69,7 +69,7 @@ This will upgrade your database schema to the latest version.
 
 ## Notes
 
-- Ensure that your Alembic configuration (`alembic.ini`) and `env.py` file are correctly set up to connect to your database.
+- Ensure that your Alembic configuration (`alembic.ini`) and `.env` file are correctly set up to connect to your database.
 - If you encounter any issues, check the logs by running `docker-compose logs`.
 
 ## Common Commands
