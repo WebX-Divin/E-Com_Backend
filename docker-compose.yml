@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  
+
   db:
     container_name: e-com_db
     image: postgres
@@ -14,9 +14,7 @@ services:
       - 5432:5432
     expose:
       - 5432
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    
+
 
 
   pgadmin:
@@ -29,7 +27,7 @@ services:
       - 5050:80
     depends_on:
       - db
-    
+
 
 
   app:
@@ -42,7 +40,3 @@ services:
       - 2326:2326
     depends_on:
       - db
-
-
-volumes:
-  postgres_data:

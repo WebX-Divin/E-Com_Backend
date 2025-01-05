@@ -3,17 +3,22 @@ import os
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from dotenv import load_dotenv
+from database import engine, Base
 
-from apis.user_api import router
+from apis import user_api
 
 
 
 load_dotenv(".env")
 app = FastAPI()
 
-app.include_router(router)
+@app.on_event("startup")
+async def startup():
+    Base.metadata.create_all(bind=engine)
 
-# app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
+app.include_router(user_api.router)
+
+app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
 
 @app.get("/")
 async def root():
